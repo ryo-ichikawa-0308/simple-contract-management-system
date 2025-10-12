@@ -12,9 +12,11 @@
         "mhutchie",
         "mikestead",
         "noninteractive",
+        "openpyxl",
         "pylance",
         "scms",
         "Takumi",
+        "tqdm",
         "venv"
     ]
 }
