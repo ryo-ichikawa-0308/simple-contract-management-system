@@ -12,11 +12,15 @@
         "mhutchie",
         "mikestead",
         "noninteractive",
+        "notnull",
         "openpyxl",
         "pylance",
         "scms",
         "Takumi",
+        "TINYINT",
         "tqdm",
+        "UPDATEDAT",
+        "VARCHAR",
         "venv"
     ]
 }
