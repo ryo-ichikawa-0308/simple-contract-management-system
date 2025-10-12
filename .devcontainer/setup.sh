@@ -1,15 +1,37 @@
 #!/bin/bash
 
 SANDBOX='sandbox'
+VENV_DIR=".venv"
 
 # 1. sandboxディレクトリを作成
 if [ ! -d "$SANDBOX" ]; then
     echo "サンドボックスディレクトリを作成します。"
-    mkdir -p sandbox
+    mkdir -p "$SANDBOX"
     echo "サンドボックスディレクトリを $(pwd)/sandbox に作成しました。"
 fi
 
-# 2. .envテンプレートをサブモジュールにコピー (存在しない場合のみ)
+# 2. Python仮想環境 (.venv) のセットアップと依存関係のインストール
+if [ ! -d "$VENV_DIR" ]; then
+    echo "--- Python仮想環境 '$VENV_DIR' を作成します ---"
+    
+    # 仮想環境の作成
+    python3 -m venv "$VENV_DIR"
+    
+    # 依存関係のインストール
+    echo "必要なPythonパッケージをインストールします (pandas, openpyxl, tqdm)..."
+    # 仮想環境内のpipを使用してインストールを確実に行う
+    "$VENV_DIR/bin/pip" install pandas openpyxl tqdm
+
+    if [ $? -eq 0 ]; then
+        echo "Python仮想環境のセットアップとパッケージのインストールが完了しました。"
+    else
+        echo "警告: Pythonパッケージのインストールに失敗しました。python3-venv がインストールされているか確認してください。"
+    fi
+else
+    echo "Python仮想環境 '$VENV_DIR' は既に作成済みです。パッケージのインストールはスキップします。"
+fi
+
+# 3. .envテンプレートをサブモジュールにコピー (存在しない場合のみ)
 API_ENV_TEMPLATE=".devcontainer/.env.api.dev"
 SCREEN_ENV_TEMPLATE=".devcontainer/.env.screen.dev"
 
