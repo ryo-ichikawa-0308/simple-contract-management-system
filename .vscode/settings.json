@@ -15,6 +15,7 @@
         "notnull",
         "openpyxl",
         "pylance",
+        "RDBMS",
         "scms",
         "Takumi",
         "TINYINT",
