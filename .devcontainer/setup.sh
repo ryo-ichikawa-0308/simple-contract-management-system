@@ -20,7 +20,7 @@ if [ ! -d "$VENV_DIR" ]; then
     # 依存関係のインストール
     echo "必要なPythonパッケージをインストールします (pandas, openpyxl, tqdm)..."
     # 仮想環境内のpipを使用してインストールを確実に行う
-    "$VENV_DIR/bin/pip" install pandas openpyxl tqdm
+    "$VENV_DIR/bin/pip" install pandas openpyxl tqdm stringcase
 
     if [ $? -eq 0 ]; then
         echo "Python仮想環境のセットアップとパッケージのインストールが完了しました。"
