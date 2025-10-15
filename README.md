@@ -60,4 +60,8 @@ git submodule update --init --recursive
 - メールアドレス: すべて`username@example.com`のような形式でAIで自動生成
 - 電話番号: すべて[総務省 電気通信番号指定状況](https://www.soumu.go.jp/main_sosiki/joho_tsusin/top/tel_number/number_shitei.html)を参照し、未割り当ての番号領域(例：0900-xxx-xxxx、0800-xxx-xxxxなど)を利用してAIで自動生成
 
+本プロジェクトの創作動機及び過程の説明は[こちら](./NOTICE.md)。
+
+本プロジェクト(サブモジュール含む)は[MITライセンス](./LICENCE.md)にて公開されます。
+
 (C)2025 Ryo ICHIKAWA
