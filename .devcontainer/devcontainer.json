@@ -26,7 +26,8 @@
         "GitHub.vscode-pull-request-github",
         "streetsidesoftware.code-spell-checker",
         "mikestead.dotenv",
-        "humao.rest-client"
+        "humao.rest-client",
+        "takezoe.vscode-csv-markdown"
       ]
     }
   },
