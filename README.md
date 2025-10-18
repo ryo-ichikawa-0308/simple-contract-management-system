@@ -28,7 +28,7 @@ WSLまたはLinuxターミナルで本プロジェクトをクローンしてく
 
 ```bash
 git clone --recurse-submodules https://github.com/ryo-ichikawa-0308/simple-contract-management-system.git
-````
+```
 
 **ヒント:** `--recurse-submodules`オプションにより、サブモジュールも同時にクローンされます。もしこのオプションを忘れた場合は、`git submodule update --init --recursive`を別途実行してください。
 
@@ -59,6 +59,7 @@ git submodule update --init --recursive
 - 企業名、人名、住所、サービス名等の固有名詞: すべてAIで自動生成
 - メールアドレス: すべて`username@example.com`のような形式でAIで自動生成
 - 電話番号: すべて[総務省 電気通信番号指定状況](https://www.soumu.go.jp/main_sosiki/joho_tsusin/top/tel_number/number_shitei.html)を参照し、未割り当ての番号領域(例：0900-xxx-xxxx、0800-xxx-xxxxなど)を利用してAIで自動生成
+- エラーコード等、システム固有の識別符号: すべてAIで自動生成
 
 本プロジェクトの創作動機及び過程の説明は[こちら](./NOTICE.md)。
 
