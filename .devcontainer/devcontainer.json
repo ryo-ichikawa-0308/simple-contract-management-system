@@ -1,0 +1,35 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Simple Contract Management System",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "main_workspace",
+  "workspaceFolder": "/workspaces",
+  "overrideCommand": false,
+  // 開発に必要な拡張機能を定義
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "DavidAnson.vscode-markdownlint",
+        "ms-python.vscode-python-envs",
+        "TakumiI.markdowntable",
+        "bierner.markdown-mermaid",
+        "mhutchie.git-graph",
+        "ms-azuretools.vscode-docker",
+        "Prisma.prisma",
+        "firsttris.vscode-jest-runner",
+        "GitHub.vscode-pull-request-github",
+        "streetsidesoftware.code-spell-checker",
+        "mikestead.dotenv",
+        "humao.rest-client",
+        "takezoe.vscode-csv-markdown"
+      ]
+    }
+  },
+  "postCreateCommand": "git submodule update --init --recursive && chmod +x .devcontainer/setup.sh && ./.devcontainer/setup.sh"
+}

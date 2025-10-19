@@ -1,0 +1,15 @@
+[submodule "api"]
+	path = api
+	url = https://github.com/ryo-ichikawa-0308/scms-api.git
+[submodule "api-docs"]
+	path = api-docs
+	url = https://github.com/ryo-ichikawa-0308/scms-api-docs.git
+[submodule "db-docs"]
+	path = db-docs
+	url = https://github.com/ryo-ichikawa-0308/scms-db-docs.git
+[submodule "prompts"]
+	path = prompts
+	url = https://github.com/ryo-ichikawa-0308/scms-prompts.git
+[submodule "screen"]
+	path = screen
+	url = https://github.com/ryo-ichikawa-0308/scms-screen.git
