@@ -1,14 +1,18 @@
 {
     "cSpell.words": [
         "Anson",
+        "autoincrement",
         "bierner",
+        "BYTEA",
         "dbaeumer",
         "devcontainers",
         "eamodio",
         "esbenp",
         "firsttris",
+        "Fulltext",
         "humao",
         "markdowntable",
+        "MEDIUMTEXT",
         "mhutchie",
         "mikestead",
         "noninteractive",

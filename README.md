@@ -13,7 +13,7 @@
 すべてのコンポーネントは独立したリポジトリとしてGitサブモジュールで管理されています。
 
 - **simple-contract-management-system** (Main Repository) メインプロジェクト。開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
-- **db-docs** (Git Submodule) データベース定義書及び、Prismaコード自動生成プログラム
+- **db-docs** (Git Submodule) データベース定義書
 - **api-docs** (Git Submodule) 画面からのエンドポイントになるAPIの設計書
 - **api** (Git Submodule) API設計書に基づいて実装したAPIのコード
 - **screen** (Git Submodule) 画面のコード
