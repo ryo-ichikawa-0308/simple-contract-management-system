@@ -1,4 +1,4 @@
-# simple-contract-management-system
+# simple-contract-management-system(暫定公開版)
 
 ユーザー、サービス、契約テーブルを持つシステムのサンプル
 
