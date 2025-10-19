@@ -20,7 +20,7 @@ if [ ! -d "$VENV_DIR" ]; then
     # 依存関係のインストール
     echo "必要なPythonパッケージをインストールします (pandas, openpyxl, tqdm)..."
     # 仮想環境内のpipを使用してインストールを確実に行う
-    "$VENV_DIR/bin/pip" install pandas openpyxl tqdm stringcase
+    "$VENV_DIR/bin/pip" install pandas openpyxl tqdm stringcase google-genai
 
     if [ $? -eq 0 ]; then
         echo "Python仮想環境のセットアップとパッケージのインストールが完了しました。"
@@ -32,11 +32,13 @@ else
 fi
 
 # 3. .envテンプレートをサブモジュールにコピー (存在しない場合のみ)
-API_ENV_TEMPLATE=".devcontainer/.env.api.dev"
-SCREEN_ENV_TEMPLATE=".devcontainer/.env.screen.dev"
+API_ENV_TEMPLATE=".devcontainer/init/.env.api.dev"
+SCREEN_ENV_TEMPLATE=".devcontainer/init/.env.screen.dev"
+GEMINI_KEY=".devcontainer/init/api.ini"
 
 API_ENV_DEST="api/.env"
 SCREEN_ENV_DEST="screen/.env"
+GEMINI_KEY_DEST="prompts/gemini_script/api.ini"
 
 # API向けの .env ファイルをコピー
 if [ -f "$API_ENV_TEMPLATE" ]; then
@@ -60,6 +62,18 @@ if [ -f "$SCREEN_ENV_TEMPLATE" ]; then
     fi
 else
     echo "テンプレートファイル $SCREEN_ENV_TEMPLATE が見つからなかったため、処理をスキップしました。"
+fi
+
+# Gemini APIキーファイルをコピー
+if [ -f "$GEMINI_KEY" ]; then
+    if [ ! -f "$GEMINI_KEY_DEST" ]; then
+        echo "$GEMINI_KEY を $GEMINI_KEY_DEST にコピーします。"
+        cp "$GEMINI_KEY" "$GEMINI_KEY_DEST"
+    else
+        echo "Gemini APIキーのテンプレート $GEMINI_KEY は既に作成済みです。"
+    fi
+else
+    echo "Gemini APIキーのテンプレート $GEMINI_KEY が見つからなかったため、処理をスキップしました。"
 fi
 
 echo ""

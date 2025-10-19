@@ -10,6 +10,7 @@
         "esbenp",
         "firsttris",
         "Fulltext",
+        "genai",
         "humao",
         "markdowntable",
         "MEDIUMTEXT",
@@ -29,5 +30,6 @@
         "UPDATEDAT",
         "VARCHAR",
         "venv"
-    ]
+    ],
+    "python.defaultInterpreterPath": "./.venv/bin/python",
 }
