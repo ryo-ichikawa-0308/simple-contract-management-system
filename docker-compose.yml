@@ -1,0 +1,67 @@
+services:
+  # ----------------------------------------
+  # 1. データベースサービス (MySQL)
+  # ----------------------------------------
+  db:
+    image: mysql:8.0
+    restart: always
+    container_name: scms_mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: contract_db
+    ports:
+      - "3306:3306" 
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pP@ssw0rd"]
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  # ----------------------------------------
+  # 2. バックエンドサービス (NestJS/Prisma)
+  # ----------------------------------------
+  api:
+    image: node:lts-alpine
+    container_name: scms_backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: dev
+      DATABASE_URL: "mysql://root:P@ssw0rd@db:3306/contract_db"
+    working_dir: /app    
+    volumes:
+      - ./api/scms-backend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run start:dev"
+    depends_on:
+      db:
+        condition: service_healthy # dbサービスがhealthcheckをパスするまで待機
+
+  # ----------------------------------------
+  # 3. フロントエンドサービス (Angular)
+  # ----------------------------------------
+  frontend:
+    image: node:lts-alpine
+    container_name: scms_frontend
+    ports:
+      - "4200:4200"
+    environment:
+      API_BASE_URL: http://api:3000
+    # コンテナ内の作業ディレクトリを定義
+    working_dir: /app-frontend
+    volumes:
+      - ./screen/scms-frontend:/app-frontend
+      - /app-frontend/node_modules      
+    command: sh -c "npm install --legacy-peer-deps && npm start" 
+    depends_on:
+      - api # APIサーバーが起動するまで待機
+
+# ----------------------------------------
+# ルートレベルの定義
+# ----------------------------------------
+
+# 永続化ボリュームの定義
+volumes:
+  db_data:
