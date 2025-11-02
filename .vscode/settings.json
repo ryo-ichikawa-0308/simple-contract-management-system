@@ -21,6 +21,7 @@
         "notnull",
         "openpyxl",
         "pascalcase",
+        "pathparams",
         "pylance",
         "RDBMS",
         "scms",
@@ -30,6 +31,7 @@
         "TINYINT",
         "tqdm",
         "UPDATEDAT",
+        "urlparams",
         "VARCHAR",
         "venv"
     ],
