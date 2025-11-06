@@ -5,6 +5,11 @@
   "service": "main_workspace",
   "workspaceFolder": "/workspaces",
   "overrideCommand": false,
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2":{
+      "moby": false
+    }
+  },
   // 開発に必要な拡張機能を定義
   "customizations": {
     "vscode": {
@@ -31,5 +36,7 @@
       ]
     }
   },
-  "postCreateCommand": "git submodule update --init --recursive && chmod +x .devcontainer/setup.sh && ./.devcontainer/setup.sh"
+  "postCreateCommand": "git submodule update --init --recursive && chmod +x .devcontainer/setup.sh && ./.devcontainer/setup.sh",
+  "postStartCommand": "chmod +x .devcontainer/start.sh && ./.devcontainer/start.sh",
+  "forwardPorts": [3000, 4200, 3306]
 }

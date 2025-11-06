@@ -8,26 +8,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ..:/workspaces:cached
-    # 開発ポートがあれば公開
-    # ports:
-    #   - "3000:3000" # 例: NestJS API
-    #   - "4200:4200" # 例: Angular Screen
     environment:
-      # 環境変数をここに設定
-      MYSQL_HOST: db
-    depends_on:
-      - db # DBサービスに依存
+      - COMPOSE_PROJECT_NAME=simple_contract_management-system
     command: sleep infinity 
-
-  # データベースサービス（例: MySQL）
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: contract_db
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+   
