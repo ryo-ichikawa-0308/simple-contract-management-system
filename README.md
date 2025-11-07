@@ -13,11 +13,11 @@
 すべてのコンポーネントは独立したリポジトリとしてGitサブモジュールで管理されています。
 
 - **simple-contract-management-system** (Main Repository) メインプロジェクト。開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
-- **db-docs** (Git Submodule) データベース定義書
-- **api-docs** (Git Submodule) 画面からのエンドポイントになるAPIの設計書
-- **api** (Git Submodule) API設計書に基づいて実装したAPIのコード
-- **screen** (Git Submodule) 画面のコード
-- **prompts** (Git Submodule) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
+- [**db-docs**](https://github.com/ryo-ichikawa-0308/scms-db-docs) (Git Submodule) データベース定義書
+- [**api-docs**](https://github.com/ryo-ichikawa-0308/scms-api-docs) (Git Submodule) 画面からのエンドポイントになるAPIの設計書
+- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) (Git Submodule) API設計書に基づいて実装したAPIのコード
+- [**screen**](https://github.com/ryo-ichikawa-0308/scms-screen) (Git Submodule) 画面のコード
+- [**prompts**](https://github.com/ryo-ichikawa-0308/scms-prompts) (Git Submodule) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
 - **sandbox** AIあるいはスクリプトによる自動生成結果を格納する(開発コンテナインストール時に自動生成。Git管理対象外)
 
 ## プロジェクトダウンロード方法
