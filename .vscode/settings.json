@@ -36,4 +36,7 @@
         "venv"
     ],
     "python.defaultInterpreterPath": "./.venv/bin/python",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
 }
