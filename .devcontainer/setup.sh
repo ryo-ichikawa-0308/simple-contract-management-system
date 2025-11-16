@@ -52,7 +52,7 @@ else
     echo "テンプレートファイル $API_ENV_TEMPLATE が見つからなかったため、処理をスキップしました。"
 fi
 
-# screen向けの .env ファイルをコピー
+# 画面向けの .env ファイルをコピー
 if [ -f "$SCREEN_ENV_TEMPLATE" ]; then
     if [ ! -f "$SCREEN_ENV_DEST" ]; then
         echo "$SCREEN_ENV_TEMPLATE を $SCREEN_ENV_DEST にコピーします。"
