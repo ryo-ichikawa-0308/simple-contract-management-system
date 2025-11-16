@@ -16,7 +16,7 @@
 - [**db-docs**](https://github.com/ryo-ichikawa-0308/scms-db-docs) データベース設計マニュアルと、データベース定義書サンプル
 - [**api-docs**](https://github.com/ryo-ichikawa-0308/scms-api-docs) 画面からのエンドポイントになるAPIの設計マニュアルと、API設計書サンプル
 - [**prompts**](https://github.com/ryo-ichikawa-0308/scms-prompts) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
-- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) API設計書に基づいて実装したAPIのコード
+- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) 上記プロンプトによるAIの出力結果に基づいて実装したAPIのコード
 - [**screen**](https://github.com/ryo-ichikawa-0308/scms-screen) 【開発中】画面のコード
 - **sandbox** 開発者の一時的なファイルを保存するためのディレクトリ(開発コンテナインストール時に自動生成。Git管理対象外)
 
