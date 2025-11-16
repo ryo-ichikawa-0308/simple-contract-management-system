@@ -12,13 +12,13 @@
 
 すべてのコンポーネントは独立したリポジトリとしてGitサブモジュールで管理されています。
 
-- **simple-contract-management-system** (Main Repository) メインプロジェクト。開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
-- [**db-docs**](https://github.com/ryo-ichikawa-0308/scms-db-docs) (Git Submodule) データベース設計マニュアルと、データベース定義書サンプル
-- [**api-docs**](https://github.com/ryo-ichikawa-0308/scms-api-docs) (Git Submodule) 画面からのエンドポイントになるAPIの設計マニュアルと、API設計書サンプル
-- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) (Git Submodule) API設計書に基づいて実装したAPIのコード
-- [**screen**](https://github.com/ryo-ichikawa-0308/scms-screen) (Git Submodule) 画面のコード
-- [**prompts**](https://github.com/ryo-ichikawa-0308/scms-prompts) (Git Submodule) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
-- **sandbox** AIあるいはスクリプトによる自動生成結果を格納する(開発コンテナインストール時に自動生成。Git管理対象外)
+- **simple-contract-management-system** メインプロジェクト。開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
+- [**db-docs**](https://github.com/ryo-ichikawa-0308/scms-db-docs) データベース設計マニュアルと、データベース定義書サンプル
+- [**api-docs**](https://github.com/ryo-ichikawa-0308/scms-api-docs) 画面からのエンドポイントになるAPIの設計マニュアルと、API設計書サンプル
+- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) API設計書に基づいて実装したAPIのコード
+- [**screen**](https://github.com/ryo-ichikawa-0308/scms-screen) 【開発中】画面のコード
+- [**prompts**](https://github.com/ryo-ichikawa-0308/scms-prompts) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
+- **sandbox** 開発者の一時的なファイルを保存するためのディレクトリ(開発コンテナインストール時に自動生成。Git管理対象外)
 
 ## プロジェクトダウンロード方法
 
