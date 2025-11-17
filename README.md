@@ -12,13 +12,45 @@
 
 すべてのコンポーネントは独立したリポジトリとしてGitサブモジュールで管理されています。
 
-- **simple-contract-management-system** メインプロジェクト。開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
-- [**db-docs**](https://github.com/ryo-ichikawa-0308/scms-db-docs) データベース設計マニュアルと、データベース定義書サンプル
-- [**api-docs**](https://github.com/ryo-ichikawa-0308/scms-api-docs) 画面からのエンドポイントになるAPIの設計マニュアルと、API設計書サンプル
-- [**prompts**](https://github.com/ryo-ichikawa-0308/scms-prompts) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
-- [**api**](https://github.com/ryo-ichikawa-0308/scms-api) 上記プロンプトによるAIの出力結果に基づいて実装したAPIのコード
-- [**screen**](https://github.com/ryo-ichikawa-0308/scms-screen) 【開発中】画面のコード
-- **sandbox** 開発者の一時的なファイルを保存するためのディレクトリ(開発コンテナインストール時に自動生成。Git管理対象外)
+- **メインプロジェクト(本プロジェクト)** 開発コンテナの定義やプロジェクト全体の設定・統括に必要なファイル
+- [**DB設計書(サブモジュール)**](https://github.com/ryo-ichikawa-0308/scms-db-docs) データベース設計マニュアルと、データベース定義書サンプル
+- [**API設計書(サブモジュール)**](https://github.com/ryo-ichikawa-0308/scms-api-docs) 画面からのエンドポイントになるAPIの設計マニュアルと、API設計書サンプル
+- [**プロンプト集(サブモジュール)**](https://github.com/ryo-ichikawa-0308/scms-prompts) AIガバナンスとして用いた、あるいはコード生成に用いたプロンプト
+- [**API(サブモジュール)**](https://github.com/ryo-ichikawa-0308/scms-api) 上記プロンプトによるAIの出力結果に基づいて実装したAPIのコード
+- [**画面(サブモジュール)**](https://github.com/ryo-ichikawa-0308/scms-screen) 【開発中】画面のコード
+- **sandbox(管理対象外)** 開発者の一時的なファイルを保存するためのディレクトリ(開発コンテナインストール時に自動生成)
+
+各サブモジュールは下記のように連携しています。
+
+```mermaid
+graph LR
+    subgraph メインプロジェクト
+        subgraph 設計書
+            direction LR
+            DB_DOC@{ shape: docs, label: "DB設計書" }
+            API_DOC@{ shape: docs, label: "API設計書" } 
+        end
+        DB_DOC -->|JSON変換プロンプト実行| PROMPTS
+        API_DOC -->|JSON変換プロンプト実行| PROMPTS
+        subgraph プロンプト集
+            PROMPTS{{変換プロンプト<br>レビュープロンプト}}
+        end
+        PROMPTS -->|コード変換プロンプト実行| API_SKELTON(APIスケルトンコード)
+        PROMPTS -->|レビュープロンプト実行| REVIEW@{ shape: processes, label: "レビュー結果" }
+        subgraph 中間成果物
+            direction LR
+            API_SKELTON
+            REVIEW@{ shape: processes, label: "レビュー結果" }
+        end
+        API_SKELTON -->|ビジネスロジック実装<br>テストコード実装、調整| API@{ shape: processes, label: "API" }
+        subgraph 実装成果物
+            API@{ shape: processes, label: "API" }
+            SCREEN@{ shape: processes, label: "画面" }
+        end
+    end
+```
+
+※中間成果物は管理対象外
 
 ## プロジェクトダウンロード方法
 
