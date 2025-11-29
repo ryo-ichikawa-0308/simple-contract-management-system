@@ -15,6 +15,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install -y libnss3 libxss1 libasound2 \
     && apt-get install -y chromium \
+    && apt-get install -y fonts-noto-cjk \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 ENV CHROME_BIN /usr/bin/chromium
