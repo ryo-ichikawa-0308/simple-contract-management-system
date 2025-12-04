@@ -76,6 +76,35 @@ else
     echo "Gemini APIキーのテンプレート $GEMINI_KEY が見つからなかったため、処理をスキップしました。"
 fi
 
+# 4. データベースのマイグレーション
+docker compose up -d
+echo "DBコンテナの起動を待機します。"
+DB_CONTAINER_NAME="scms_mysql_db"
+MYSQL_ROOT_PASSWORD="P@ssw0rd"
+MAX_TRIES=12 # 60秒待機 (5秒 * 12回)
+TRIES=0
+while [ $TRIES -lt $MAX_TRIES ]; do
+    if docker compose exec -T "$DB_CONTAINER_NAME" mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" &> /dev/null; then
+        echo "DB接続が確認されました。マイグレーションに進みます。"
+        break
+    fi
+    echo "DB起動待機中... ($TRIES/$MAX_TRIES)"
+    sleep 5
+    TRIES=$((TRIES + 1))
+done
+if [ $TRIES -eq $MAX_TRIES ]; then
+    echo "エラー: データベースが指定時間内に起動しませんでした。手動でコンテナの状態を確認してください。"
+    exit 1
+fi
+
+cd api/scms-backend
+echo "Prisma マイグレーションを実行します。"
+npx prisma migrate dev
+echo "API経由の初期データ投入バッチを実行します。"
+npm run batch:init
+cd /workspaces
+
+# エンドメッセージ
 echo ""
 echo "========================================================"
 echo "セットアップが完了しました。"
