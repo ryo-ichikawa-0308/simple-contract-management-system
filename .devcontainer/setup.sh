@@ -79,7 +79,7 @@ fi
 # 4. データベースのマイグレーション
 docker compose up -d
 echo "DBコンテナの起動を待機します。"
-DB_CONTAINER_NAME="scms_mysql_db"
+DB_CONTAINER_NAME="db"
 MYSQL_ROOT_PASSWORD="P@ssw0rd"
 MAX_TRIES=12 # 60秒待機 (5秒 * 12回)
 TRIES=0
@@ -99,9 +99,9 @@ fi
 
 cd api/scms-backend
 echo "Prisma マイグレーションを実行します。"
-npx prisma migrate dev
+npx prisma migrate dev --name initial_setup
 echo "API経由の初期データ投入バッチを実行します。"
-npm run batch:init
+sudo npm run batch:init
 cd /workspaces
 
 # エンドメッセージ
