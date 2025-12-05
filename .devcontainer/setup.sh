@@ -40,6 +40,9 @@ API_ENV_DEST="api/.env"
 SCREEN_ENV_DEST="screen/.env"
 GEMINI_KEY_DEST="prompts/gemini_script/api.ini"
 
+API_NODE_MODULES="api/scms-backend/node_modules"
+SCREEN_NODE_MODULES="screen/scms-frontend/node_modules"
+
 # API向けの .env ファイルをコピー
 if [ -f "$API_ENV_TEMPLATE" ]; then
     if [ ! -f "$API_ENV_DEST" ]; then
@@ -52,6 +55,17 @@ else
     echo "テンプレートファイル $API_ENV_TEMPLATE が見つからなかったため、処理をスキップしました。"
 fi
 
+# APIのnode_modulesディレクトリを作成
+if [ -d "$API_NODE_MODULES" ]; then
+    echo "APIのnode_modulesディレクトリを更新します。"
+    sudo rm -rf "$API_NODE_MODULES"
+fi
+
+cd api/scms-backend
+echo "APIの依存関係をインストールします。"
+sudo npm install
+cd /workspaces
+
 # 画面向けの .env ファイルをコピー
 if [ -f "$SCREEN_ENV_TEMPLATE" ]; then
     if [ ! -f "$SCREEN_ENV_DEST" ]; then
@@ -63,6 +77,17 @@ if [ -f "$SCREEN_ENV_TEMPLATE" ]; then
 else
     echo "テンプレートファイル $SCREEN_ENV_TEMPLATE が見つからなかったため、処理をスキップしました。"
 fi
+
+# 画面のnode_modulesディレクトリを作成
+if [ -d "$SCREEN_NODE_MODULES" ]; then
+    echo "画面のnode_modulesディレクトリを更新します。"
+    sudo rm -rf "$SCREEN_NODE_MODULES"
+fi
+
+cd screen/scms-frontend
+echo "画面の依存関係をインストールします。"
+sudo npm install
+cd /workspaces
 
 # Gemini APIキーファイルをコピー
 if [ -f "$GEMINI_KEY" ]; then
@@ -85,7 +110,7 @@ MAX_TRIES=12 # 60秒待機 (5秒 * 12回)
 TRIES=0
 while [ $TRIES -lt $MAX_TRIES ]; do
     if docker compose exec -T "$DB_CONTAINER_NAME" mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" &> /dev/null; then
-        echo "DB接続が確認されました。マイグレーションに進みます。"
+        echo "DB接続が確認されました。APIサーバーの起動を待機します。"
         break
     fi
     echo "DB起動待機中... ($TRIES/$MAX_TRIES)"
@@ -97,11 +122,38 @@ if [ $TRIES -eq $MAX_TRIES ]; then
     exit 1
 fi
 
+API_CONTAINER_NAME="api"
+API_PORT="3000"
+API_CHECK_ENDPOINT="http://localhost:$API_PORT/api/v1" # Hello worldエンドポイント
+
+echo "APIサーバー ($API_CONTAINER_NAME) 起動待機を開始します..."
+
+TRIES=0
+MAX_TRIES=30 # 最大試行回数 (30回 x 5秒 = 150秒)
+
+while [ $TRIES -lt $MAX_TRIES ]; do
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -m 5 "$API_CHECK_ENDPOINT" 2>/dev/null)
+
+    if [ "$HTTP_CODE" = "200" ]; then
+        echo "APIサーバーのヘルスチェックが成功しました (HTTP 200)。マイグレーションに進みます。"
+        break
+    fi
+
+    echo "APIサーバー起動待機中... (HTTPコード: $HTTP_CODE) ($TRIES/$MAX_TRIES)"
+    sleep 5
+    TRIES=$((TRIES + 1))
+done
+
+if [ $TRIES -eq $MAX_TRIES ]; then
+    echo "エラー: APIサーバーが指定時間内に起動しませんでした。手動でコンテナの状態を確認してください。"
+    exit 1
+fi
+
 cd api/scms-backend
 echo "Prisma マイグレーションを実行します。"
-npx prisma migrate dev --name initial_setup
-echo "API経由の初期データ投入バッチを実行します。"
-sudo npm run batch:init
+npm run db:migrate
+echo "初期データ投入バッチを実行します。"
+npm run batch:init
 cd /workspaces
 
 # エンドメッセージ

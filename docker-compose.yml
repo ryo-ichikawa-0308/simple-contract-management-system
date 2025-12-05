@@ -31,6 +31,8 @@ services:
       NODE_ENV: dev
       DATABASE_URL: "mysql://root:P@ssw0rd@db:3306/contract_db"
     working_dir: /app    
+    env_file:
+      - ./api/.env
     volumes:
       - ./api/scms-backend:/app
       - /app/node_modules
@@ -51,6 +53,8 @@ services:
       API_BASE_URL: http://api:3000
     # コンテナ内の作業ディレクトリを定義
     working_dir: /app-frontend
+    env_file:
+      - ./screen/.env
     volumes:
       - ./screen/scms-frontend:/app-frontend
       - /app-frontend/node_modules      
